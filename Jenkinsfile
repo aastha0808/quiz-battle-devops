@@ -4,7 +4,7 @@ pipeline {
     environment {
         IMAGE_NAME    = "quiz-battle-backend"
         COMPOSE_FILE  = "docker-compose.yml"
-        REPO_URL      = "https://github.com/YOUR_USERNAME/YOUR_REPO.git"
+        REPO_URL      = "https://github.com/aastha0808/quiz-battle-devops.git"
     }
 
     stages {
