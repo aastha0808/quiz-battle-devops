@@ -1,5 +1,6 @@
 package com.quizbattle.backend.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import java.time.LocalDateTime;
@@ -29,10 +30,12 @@ public class QuizSession {
     @Column(name = "ended_at")
     private LocalDateTime endedAt;
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "quiz_id", nullable = false)
     private Quiz quiz;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "session", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<PlayerAnswer> playerAnswers;
 }

@@ -48,7 +48,7 @@ export default function Session() {
   useEffect(() => {
     if (!quizId) { setLoading(false); return }
     getQuestions(quizId)
-      .then(r => setQuestions(r.data))
+      .then(r => setQuestions(Array.isArray(r.data) ? r.data : []))
       .catch(() => setQuestions([]))
       .finally(() => setLoading(false))
   }, [quizId])
@@ -101,7 +101,7 @@ export default function Session() {
         getLeaderboard(sessionId),
       ])
       setScore(scoreRes.data)
-      setLeaderboard(lbRes.data)
+      setLeaderboard(Array.isArray(lbRes.data) ? lbRes.data : [])
     } catch {}
   }, [sessionId])
 

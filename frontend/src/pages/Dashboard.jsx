@@ -12,7 +12,7 @@ export default function Dashboard() {
   useEffect(() => {
     if (!user) return
     getQuizzesByUser(user.id)
-      .then(r => setQuizzes(r.data))
+      .then(r => setQuizzes(Array.isArray(r.data) ? r.data : []))
       .catch(() => setQuizzes([]))
       .finally(() => setLoading(false))
   }, [user])

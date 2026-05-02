@@ -1,5 +1,6 @@
 package com.quizbattle.backend.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -35,6 +36,7 @@ public class Question {
     @Column(nullable = false)
     private Integer points = 10;
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "quiz_id", nullable = false)
     private Quiz quiz;

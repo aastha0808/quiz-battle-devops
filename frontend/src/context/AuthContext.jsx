@@ -20,7 +20,11 @@ export function AuthProvider({ children }) {
       localStorage.setItem('qba_user', JSON.stringify(u))
       return u
     } catch (e) {
-      const msg = e.response?.data?.message || 'User not found'
+      const data = e.response?.data
+      // Spring validation returns field errors under 'fieldErrors'
+      const msg = data?.fieldErrors
+        ? Object.values(data.fieldErrors).join(', ')
+        : data?.message || 'User not found'
       setError(msg)
       throw new Error(msg)
     } finally {
@@ -38,7 +42,11 @@ export function AuthProvider({ children }) {
       localStorage.setItem('qba_user', JSON.stringify(u))
       return u
     } catch (e) {
-      const msg = e.response?.data?.message || 'Registration failed'
+      const data = e.response?.data
+      // Spring validation returns field errors under 'fieldErrors'
+      const msg = data?.fieldErrors
+        ? Object.values(data.fieldErrors).join(', ')
+        : data?.message || 'Registration failed'
       setError(msg)
       throw new Error(msg)
     } finally {

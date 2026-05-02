@@ -18,7 +18,7 @@ export default function MyQuizzes() {
   const load = () => {
     setLoading(true)
     getQuizzesByUser(user.id)
-      .then(r => setQuizzes(r.data))
+      .then(r => setQuizzes(Array.isArray(r.data) ? r.data : []))
       .catch(() => setQuizzes([]))
       .finally(() => setLoading(false))
   }
