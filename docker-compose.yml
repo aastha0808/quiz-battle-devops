@@ -2,6 +2,7 @@ version: "3.8"
 
 services:
 
+  # ── MySQL Database ───────────────────────────────────────
   mysql:
     image: mysql:8.0
     container_name: quiz_mysql
@@ -21,6 +22,7 @@ services:
       timeout: 5s
       retries: 5
 
+  # ── Spring Boot Backend ──────────────────────────────────
   backend:
     build:
       context: ./backend
@@ -38,6 +40,18 @@ services:
     depends_on:
       mysql:
         condition: service_healthy
+
+  # ── React Frontend (Nginx) ───────────────────────────────
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: quiz_frontend
+    restart: always
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
 
 volumes:
   mysql_data:
