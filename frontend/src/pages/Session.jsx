@@ -69,7 +69,7 @@ export default function Session() {
         sessionId: Number(sessionId),
         questionId: currentQ.id,
         userId: user.id,
-        chosenOption: selected,
+        selectedOption: selected,
       })
       const ans = res.data
       setResult({ isCorrect: ans.isCorrect, pointsAwarded: ans.pointsAwarded })
