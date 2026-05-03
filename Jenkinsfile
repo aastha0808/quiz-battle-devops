@@ -50,7 +50,17 @@ pipeline {
         stage('Stop Old Containers') {
             steps {
                 echo '>>> Tearing down old containers...'
-                sh 'docker compose -f ${COMPOSE_FILE} down --remove-orphans || true'
+                sh '''
+                    # Stop containers from this compose project
+                    docker compose -f ${COMPOSE_FILE} down --remove-orphans || true
+
+                    # Also force-remove containers by fixed name
+                    # (handles containers started from a different compose project/directory)
+                    docker rm -f quiz_mysql quiz_backend quiz_frontend 2>/dev/null || true
+
+                    echo "--- Remaining containers after cleanup ---"
+                    docker ps -a --filter name=quiz_ || true
+                '''
             }
         }
 
